@@ -1,0 +1,23 @@
+# Terraform local directories and plugins
+**/.terraform/*
+.terraform*
+
+# State files (never commit!)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Optional: sensitive or auto-generated vars
+*.auto.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI config (personal settings)
+.terraformrc
+terraform.rc

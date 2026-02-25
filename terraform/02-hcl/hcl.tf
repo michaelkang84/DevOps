@@ -1,4 +1,37 @@
 terraform {
+
+  # The backend block is used to configure where and how Terraform stores its state file.
+  # It defines the backend type (e.g., local, s3, remote) and any relevant settings for storing
+  # and locking the Terraform state, ensuring state consistency and allowing for collaboration.
+
+  # The required_version block within the terraform block specifies which versions of Terraform
+  # are compatible with this configuration. It allows you to enforce a minimum Terraform version,
+  # a maximum version, or a version range. This helps ensure consistency across different environments,
+  # avoids breaking changes from future Terraform releases, and facilitates collaboration by making
+  # sure everyone working with the code uses a known-working Terraform version.
+  #
+  # Example:
+  # required_version = ">= 1.3.0, < 2.0.0"
+  # Examples of specifying required_version constraints:
+  #
+  # Minimum version only (any version 1.3.0 or higher):
+  # required_version = ">= 1.3.0"
+  #
+  # Specific version only (exactly 1.3.0):
+  # required_version = "= 1.3.0"
+  #
+  # Range (any version greater than or equal to 1.3.0 and less than 2.0.0):
+  # required_version = ">= 1.3.0, < 2.0.0"
+  #
+  # Exclude a specific version (any 1.x except 1.4.0):
+  # required_version = "~> 1.3, != 1.4.0"
+  #
+  # Allow patch-level updates (1.3.x, but not 1.4.x or higher):
+  # required_version = "~> 1.3.0"
+
+
+
+
   required_providers {
     aws = {
       source = "hashicorp/aws"
@@ -6,6 +39,7 @@ terraform {
     }
   }
 }
+# can't use variables in this block
 
 #actively managed by us
 resource "aws_s3_bucket" "my_bucket" {

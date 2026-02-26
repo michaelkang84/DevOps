@@ -1,5 +1,6 @@
 resource "aws_instance" "web" {
-  ami                         = "ami-04680790a315cd58d"
+#   ami                         = "ami-04680790a315cd58d"
+  ami                         = "ami-015ca9ee3db5edec7" # NGINX AMI Public
   associate_public_ip_address = true
   instance_type               = "t3.micro"
 
@@ -16,6 +17,10 @@ resource "aws_instance" "web" {
   tags = merge(local.common_tags, {
     Name = "06-resources-ec2"
   })
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 

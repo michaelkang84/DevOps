@@ -1,7 +1,8 @@
 locals {
   common_tags = {
-    ManagedBy = "Terraform"
-    Project   = "06-resources"
+    ManagedBy  = "Terraform"
+    Project    = "06-resources"
+    CostCenter = "123456"
   }
 }
 

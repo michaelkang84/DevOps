@@ -49,10 +49,20 @@ resource "aws_instance" "web" {
 
 }
 
-data "aws_caller_identity" "current" { }
+data "aws_caller_identity" "current" {}
+
+# data "aws_region" "current" {}
+
+data "aws_region" "current" {
+  provider = aws.us-west
+}
 
 output "caller_identity" {
   value = data.aws_caller_identity.current.account_id
+}
+
+output "region" {
+  value = data.aws_region.current.name
 }
 
 output "ubuntu-east" {

@@ -49,6 +49,12 @@ resource "aws_instance" "web" {
 
 }
 
+data "aws_caller_identity" "current" { }
+
+output "caller_identity" {
+  value = data.aws_caller_identity.current.account_id
+}
+
 output "ubuntu-east" {
   value = data.aws_ami.ubuntu-east.id
 }

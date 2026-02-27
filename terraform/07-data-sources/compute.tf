@@ -57,6 +57,17 @@ data "aws_region" "current" {
   provider = aws.us-west
 }
 
+data "aws_vpc" "prod_vpc" {
+  tags = {
+    Env = "Prod"
+  }
+}
+
+output "prod_vpc" {
+  value = data.aws_vpc.prod_vpc.id
+}
+
+
 output "caller_identity" {
   value = data.aws_caller_identity.current.account_id
 }

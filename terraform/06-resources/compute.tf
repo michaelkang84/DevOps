@@ -20,7 +20,7 @@ resource "aws_instance" "web" {
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes = [tags]
+    ignore_changes        = [tags]
   }
 }
 

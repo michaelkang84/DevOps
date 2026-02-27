@@ -20,17 +20,17 @@ resource "aws_s3_bucket_policy" "static-website-public-read" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "PublicReadForGetBucketObjects"
-        Effect = "Allow"
+        Sid       = "PublicReadForGetBucketObjects"
+        Effect    = "Allow"
         Principal = "*"
-        Action = "s3:GetObject"
-        Resource = "${aws_s3_bucket.static-website.arn}/*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.static-website.arn}/*"
       }
     ]
   })
 }
 
-resource "aws_s3_bucket_website_configuration" "static-website" {
+resource "aws_s3_bucket_website_configuration" "static-website-website-configuration" {
   bucket = aws_s3_bucket.static-website.id
   index_document {
     suffix = "index.html"

@@ -16,13 +16,12 @@ data "aws_ami" "ubuntu-east" {
 resource "aws_instance" "web-compute" {
 
   ami           = data.aws_ami.ubuntu-east.id
-  instance_type = "t3.micro"
+  instance_type = var.ec2_instance_size
 
   root_block_device {
     delete_on_termination = true
-    volume_size           = 10
-    volume_type           = "gp3"
+    volume_size           = var.ec2_volume_size
+    volume_type           = var.ec2_volume_type
   }
-
 
 }

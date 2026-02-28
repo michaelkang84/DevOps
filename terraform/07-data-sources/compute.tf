@@ -79,7 +79,8 @@ data "aws_iam_policy_document" "static-website-policy" {
 
     actions = ["s3:GetObject"]
 
-    resources = ["${aws_s3_bucket.public_read_bucket.arn}/*"]
+    # resources = ["${aws_s3_bucket.public_read_bucket.arn}/*"]
+    resources = ["$arn:aws:s3:::public-read-bucket/*"]
   }
 }
 

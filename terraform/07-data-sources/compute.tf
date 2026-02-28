@@ -67,6 +67,30 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
+data "aws_iam_policy_document" "static-website-policy" {
+  statement {
+    sid = "PublicReadGetObject"
+
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = ["s3:GetObject"]
+
+    resources = ["${aws_s3_bucket.public_read_bucket.arn}/*"]
+  }
+}
+
+resource "aws_s3_bucket" "public_read_bucket" {
+  bucket = "public-read-bucket"
+}
+
+output "static-website-policy" {
+  value = data.aws_iam_policy_document.static-website-policy.json
+}
+
 output "availability_zones" {
   value = data.aws_availability_zones.available.names
 }

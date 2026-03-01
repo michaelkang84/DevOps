@@ -74,3 +74,8 @@ variable "additional_tags" {
   #     "Owner" = "John Doe"
   # }
 }
+
+variable "my_sensitive_var" {
+  type = string
+  sensitive = true
+}

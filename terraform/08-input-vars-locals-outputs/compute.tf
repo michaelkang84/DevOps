@@ -5,6 +5,14 @@ locals {
 
 }
 
+locals {
+  common_tags = {
+    owner       = local.project_owner
+    cost_center = local.cost_center
+    managed_by  = local.managed_by
+  }
+}
+
 data "aws_ami" "ubuntu-east" {
   most_recent = true
   owners      = ["099720109477"] # Cononical
@@ -26,9 +34,7 @@ resource "aws_instance" "web-compute" {
   instance_type = var.ec2_instance_type
 
   tags = merge(
-    {
-      ManagedBy = locals.managed_by
-    },
+    local.common_tags,
     var.additional_tags
   )
 

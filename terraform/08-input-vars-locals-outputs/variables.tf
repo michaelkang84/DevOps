@@ -4,13 +4,13 @@
 #     default = "us-east-1"
 # }
 
-variable "ec2_instance_size" {
+variable "ec2_instance_type" {
   type        = string
   description = "Size of Managed EC2 instance"
   default     = "t3.micro"
 
   validation {
-    condition     = contains(["t3.micro", "t2.micro"], var.ec2_instance_size)
+    condition     = contains(["t3.micro", "t2.micro"], var.ec2_instance_type)
     error_message = "Invalid EC2 instance size. Allowed values are: t3.micro, t2.micro."
   }
 

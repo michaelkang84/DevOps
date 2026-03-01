@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu-east" {
 resource "aws_instance" "web-compute" {
 
   ami           = data.aws_ami.ubuntu-east.id
-  instance_type = var.ec2_instance_size
+  instance_type = var.ec2_instance_type
 
   tags = merge(
     {

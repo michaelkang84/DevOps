@@ -9,4 +9,4 @@ resource "aws_s3_bucket" "project_bucket" {
     local.common_tags,
     var.additional_tags
   )
-}  
+}

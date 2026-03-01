@@ -6,5 +6,5 @@ ec2_volume_config = {
 ec2_instance_type = "t2.micro"
 
 additional_tags = {
-  ValuesFrom = "dev.terraform.tfvars"
+  ValuesFrom = "terraform.tfvars"
 }

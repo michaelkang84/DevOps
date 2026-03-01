@@ -1,3 +1,10 @@
+locals {
+  project_owner = "terraform-course"
+  cost_center   = "1234"
+  managed_by    = "Terraform"
+
+}
+
 data "aws_ami" "ubuntu-east" {
   most_recent = true
   owners      = ["099720109477"] # Cononical
@@ -20,7 +27,7 @@ resource "aws_instance" "web-compute" {
 
   tags = merge(
     {
-      ManagedBy = "Terraform"
+      ManagedBy = locals.managed_by
     },
     var.additional_tags
   )

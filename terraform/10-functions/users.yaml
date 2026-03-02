@@ -1,0 +1,5 @@
+users:
+  - name: Michael
+    group: devops
+  - name: Sarah
+    group: auditors

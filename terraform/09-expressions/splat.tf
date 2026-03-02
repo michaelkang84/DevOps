@@ -1,5 +1,5 @@
 locals {
-  firstnames_from_splat = var.players[*].name
+  firstnames_from_splat = toset(var.players[*].name)
 
   sponsors_from_splat = values(local.players_map_two)[*].sponsors
 }

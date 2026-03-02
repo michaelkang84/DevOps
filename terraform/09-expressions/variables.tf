@@ -21,5 +21,5 @@ variable "players" {
 }
 
 variable "player_to_output" {
-    type = string
+  type = string
 }

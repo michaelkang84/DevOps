@@ -1,16 +1,9 @@
-# locals {
-#     player_with_sponsor = {
-#         for player in var.players : player.name => {
-#             sponsor = player.sponsor
-#         }
-#     }
-# }
 locals {
   player_with_sponsor = { for player in var.players : player.name => player.sponsor... }
 
   players_map_two = {
     for name, sponsors in local.player_with_sponsor : name => {
-        sponsors = sponsors
+      sponsors = sponsors
     }
   }
 

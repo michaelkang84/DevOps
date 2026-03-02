@@ -32,6 +32,12 @@ players = [{
     sponsor = "Nike"
   },
   {
+    name    = "Rory"
+    sponsor = "TaylorMade"
+  },
+  {
     name    = "Collin"
     sponsor = "Adidas"
 }]
+
+player_to_output = "Rory"

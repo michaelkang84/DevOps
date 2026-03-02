@@ -19,3 +19,7 @@ variable "players" {
     sponsor = string
   }))
 }
+
+variable "player_to_output" {
+    type = string
+}

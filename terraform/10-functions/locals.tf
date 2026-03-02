@@ -19,10 +19,10 @@ output "example_two" {
 }
 
 output "example_three" {
-    value = yamldecode(file("${path.module}/users.yaml")).users[*].name
+  value = yamldecode(file("${path.module}/users.yaml")).users[*].name
 }
 
 output "example_four" {
-    value = jsonencode(local.my_object)
-    # value = yamlencode(local.my_object)
+  value = jsonencode(local.my_object)
+  # value = yamlencode(local.my_object)
 }

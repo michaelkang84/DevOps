@@ -8,11 +8,25 @@ variable "ec2_instance_count" {
   default = 1
 }
 
+variable "subnet_config" {
+  type = map(object({
+    cidr_block = string
+  }))
+
+  validation {
+    condition = alltrue([for subnet in values(var.subnet_config) : can(cidrnetmask(subnet.cidr_block))])
+    error_message = "At least one of the provided CIDR blocks is not valid!"
+  }
+}
+
+
 variable "ec2_instance_config_map" {
   type = map(object({
     instance_type = string
     ami           = string
-    subnet_index  = optional(number, 0) # Optional subnet index with a default value of 0
+    subnet_name   = optional(string, "default")
+    # Optional subnet index with a default value of 0
+    # subnet_index  = optional(number, 0)
   }))
 
   validation {
@@ -37,6 +51,8 @@ variable "ec2_instance_config_list" {
     instance_type = string
     ami           = string
   }))
+
+  default = []
 
   # Ensure that only t2.micro instances are allowed
   # 1. Map from the object to the instance_type

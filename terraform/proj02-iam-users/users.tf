@@ -1,5 +1,27 @@
+/*
+{
+    username: string
+    roles: string[]
+}[]
+
+{
+    username => roles[]
+}
+*/
 locals {
   users_from_yaml = yamldecode(file("${path.module}/user-roles.yaml")).users
+  users_map = {
+    for user in local.users_from_yaml : user.username => user.roles
+  }
+
+  # This will now throw an error if there are duplicate keys which is a safter design
+
+  #   users_map = {
+  #     for user in local.users_from_yaml : user.username => user.roles...
+  #   }
+  #   flattened_user_maps = {
+  #     for user, roles in local.users_map : user => flatten(roles)
+  #   }
 }
 
 resource "aws_iam_user" "users" {
@@ -17,13 +39,13 @@ resource "aws_iam_user_login_profile" "user_login_profiles" {
   }
 }
 
-output "passwords" {
-  sensitive = true
-  value = {
-    for user in aws_iam_user.users : user.name => aws_iam_user_login_profile.user_login_profiles[user.name].password
-  }
+output "users_map" {
+  value = local.users_map
 }
 
-output "users" {
-  value = local.users_from_yaml
-}
+# output "passwords" {
+#   sensitive = true
+#   value = {
+#     for user in aws_iam_user.users : user.name => aws_iam_user_login_profile.user_login_profiles[user.name].password
+#   }
+# }

@@ -18,10 +18,10 @@ resource "aws_iam_user_login_profile" "user_login_profiles" {
 }
 
 output "passwords" {
-    sensitive = true
-    value     = {
-        for user in aws_iam_user.users : user.name => aws_iam_user_login_profile.user_login_profiles[user.name].password
-    }
+  sensitive = true
+  value = {
+    for user in aws_iam_user.users : user.name => aws_iam_user_login_profile.user_login_profiles[user.name].password
+  }
 }
 
 output "users" {

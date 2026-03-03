@@ -14,4 +14,14 @@ variable "ec2_instance_config_list" {
     ami           = string
   }))
 
+  # Ensure that only t2.micro instances are allowed
+  # 1. Map from the object to the instance_type
+  # 2. Map from the instance_type to a boolean indicating whether it's valid or not
+  # 3. Check whether list of booleans contain only true values
+
+  validation {
+    condition     = alltrue([for config in var.ec2_instance_config_list : contains(["t2.micro"], config.instance_type)])
+    error_message = "Only t2.micro instances are allowed."
+
+  }
 }

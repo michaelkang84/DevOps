@@ -3,7 +3,6 @@
 #   roles    = (readonly | developer | admin | auditor)[]
 # }[]
 
-
 users:
 - username: michael
   roles: [readonly, developer]

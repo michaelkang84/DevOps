@@ -8,6 +8,14 @@ variable "ec2_instance_count" {
   default = 1
 }
 
+variable "ec2_instance_config_map" {
+  type = map(object({
+    instance_type = string
+    ami           = string
+    subnet_index  = optional(number, 0) # Optional subnet index with a default value of 0
+  }))
+}
+
 variable "ec2_instance_config_list" {
   type = list(object({
     instance_type = string

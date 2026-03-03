@@ -13,8 +13,9 @@ variable "subnet_config" {
     cidr_block = string
   }))
 
+  # Ensure that all provided CIDR blocks are valid
   validation {
-    condition = alltrue([for subnet in values(var.subnet_config) : can(cidrnetmask(subnet.cidr_block))])
+    condition     = alltrue([for subnet in values(var.subnet_config) : can(cidrnetmask(subnet.cidr_block))])
     error_message = "At least one of the provided CIDR blocks is not valid!"
   }
 }

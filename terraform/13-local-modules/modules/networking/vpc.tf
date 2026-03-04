@@ -7,6 +7,10 @@ resource "aws_vpc" "this" {
 
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_subnet" "this" {
   for_each = var.subnet_config
 
@@ -16,5 +20,12 @@ resource "aws_subnet" "this" {
 
   tags = {
     Name = "${var.vpc_config.vpc_name}-${each.key}"
+  }
+
+  lifecycle {
+    precondition {
+      condition     = contains(data.aws_availability_zones.available.names, each.value.az)
+      error_message = "Invalid availability zone: ${each.value.az}. Must be one of: ${join(", ", data.aws_availability_zones.available.names)}"
+    }
   }
 }

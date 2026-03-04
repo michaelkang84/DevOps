@@ -22,4 +22,7 @@ variable "subnet_config" {
     ])
     error_message = "The variable vpc_config must be a valid CIDR block."
   }
+
+
+
 }

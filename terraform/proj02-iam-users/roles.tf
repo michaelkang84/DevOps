@@ -31,11 +31,7 @@ locals {
 
 data "aws_caller_identity" "current" {}
 
-data "aws_iam_policy" "managed_policies" {
-  for_each = toset(local.role_policies_list[*].policy)
-  arn      = "arn:aws:iam::aws:policy/${each.value}"
-}
-
+# Trust Policy
 data "aws_iam_policy_document" "assume_role_policy" {
   for_each = toset(keys(local.role_policies))
 
@@ -51,6 +47,12 @@ data "aws_iam_policy_document" "assume_role_policy" {
       #   identifiers = ["arn:aws:iam::113817973311:user/kevin"]
     }
   }
+}
+
+# AWS Managed Policies
+data "aws_iam_policy" "managed_policies" {
+  for_each = toset(local.role_policies_list[*].policy)
+  arn      = "arn:aws:iam::aws:policy/${each.value}"
 }
 
 /*

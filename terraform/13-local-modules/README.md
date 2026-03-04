@@ -6,3 +6,5 @@ A networking modules that should:
     2.3 Should be able to provide the AWS AZ for the subnets
         2.3.1 If at least one subnet is public, we need to deploy an IGW
         2.3.2 Need to associate public subnets with a public RTB
+
+

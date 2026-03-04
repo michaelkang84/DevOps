@@ -20,7 +20,11 @@ data "aws_ami" "ubuntu-east" {
 resource "aws_instance" "this" {
   ami           = data.aws_ami.ubuntu-east.id
   instance_type = var.instance_type
-  subnet_id = aws_subnet.this.id
+  subnet_id     = aws_subnet.this[0].id
+
+  tags = {
+    CostCenter = "123"
+  }
 
 
   root_block_device {
@@ -42,7 +46,12 @@ resource "aws_instance" "this" {
       condition     = contains(local.allowed_instance_types, self.instance_type)
       error_message = "Self Invalid instance type. Allowed types are: ${join(", ", local.allowed_instance_types)}."
     }
-
   }
+}
 
+check "cost_center_check" {
+  assert {
+    condition     = can(aws_instance.this.tags["CostCenter"] != "")
+    error_message = "Your AWS Instance does not have a Cost Center tag."
+  }
 }

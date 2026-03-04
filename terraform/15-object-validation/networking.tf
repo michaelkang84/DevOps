@@ -1,5 +1,5 @@
 data "aws_vpc" "default" {
-    default = true
+  default = true
 }
 
 data "aws_availability_zones" "available" {
@@ -7,8 +7,13 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_subnet" "this" {
-  vpc_id = data.aws_vpc.default.id
-  cidr_block = "172.31.128.0/24"
+
+  count      = 2
+  vpc_id     = data.aws_vpc.default.id
+  cidr_block = "172.31.${128 + count.index}.0/24"
+  availability_zone = data.aws_availability_zones.available.names[
+    count.index % length(data.aws_availability_zones.available.names)
+  ]
 
   lifecycle {
     postcondition {
@@ -17,3 +22,10 @@ resource "aws_subnet" "this" {
     }
   }
 }
+
+check "subnet_az_check" {
+  assert {
+    condition     = length(distinct([for subnet in aws_subnet.this : subnet.availability_zone])) > 1
+    error_message = "Not Highly Available. All subnets in a single AZ."
+  }
+}   

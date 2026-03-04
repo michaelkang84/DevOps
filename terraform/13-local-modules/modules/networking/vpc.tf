@@ -32,6 +32,7 @@ resource "aws_subnet" "this" {
 
   tags = {
     Name = "${var.vpc_config.vpc_name}-${each.key}"
+    Access = each.value.public ? "public" : "private"
   }
 
   lifecycle {

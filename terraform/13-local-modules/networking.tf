@@ -17,5 +17,16 @@ module "vpc" {
       az         = "us-east-1b"
       public     = true
     }
+
+    subnet_3 = {
+      cidr_block = "10.0.2.0/24"
+      az         = "us-east-1c"
+    }
+
+    subnet_4 = {
+      cidr_block = "10.0.3.0/24"
+      az         = "us-east-1d"
+      public     = true
+    }
   }
 }

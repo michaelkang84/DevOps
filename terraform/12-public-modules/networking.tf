@@ -1,7 +1,7 @@
 locals {
-  vpc_cidr = "1.0.0.0/16"
+  vpc_cidr             = "10.0.0.0/16"
   private_subnet_cidrs = ["10.0.0.0/24"]
-  public_subnet_cidrs = ["10.0.128.0/24"]
+  public_subnet_cidrs  = ["10.0.128.0/24"]
 }
 
 data "aws_availability_zones" "azs" {

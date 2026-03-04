@@ -1,5 +1,5 @@
 locals {
-    allowed_instance_types = ["t3.micro", "t2.micro"]
+  allowed_instance_types = ["t3.micro", "t2.micro"]
 }
 
 data "aws_ami" "ubuntu-east" {
@@ -19,7 +19,8 @@ data "aws_ami" "ubuntu-east" {
 
 resource "aws_instance" "this" {
   ami           = data.aws_ami.ubuntu-east.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
+  subnet_id = aws_subnet.this.id
 
 
   root_block_device {
@@ -30,15 +31,18 @@ resource "aws_instance" "this" {
 
   lifecycle {
 
+    create_before_destroy = true
+
     precondition {
-      condition = contains(local.allowed_instance_types, var.instance_type)
-      error_message = "Invalid instance type. Allowed types are: ${join(", ", local.allowed_instance_types)}."
+      condition     = contains(local.allowed_instance_types, var.instance_type)
+      error_message = "Var Invalid instance type. Allowed types are: ${join(", ", local.allowed_instance_types)}."
     }
 
     postcondition {
-      condition     = self.instance_type == "t3.micro"
-      error_message = "Only t3.micro instances are allowed."
+      condition     = contains(local.allowed_instance_types, self.instance_type)
+      error_message = "Self Invalid instance type. Allowed types are: ${join(", ", local.allowed_instance_types)}."
     }
+
   }
 
 }

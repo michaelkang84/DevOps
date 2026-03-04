@@ -1,3 +1,11 @@
+locals {
+  public_subnets = {
+    for key, subnet in var.subnet_config : key => subnet if subnet.public
+    # for key, subnet in var.subnet_config : key => subnet
+    # if lookup(subnet, "public", false) == true
+  }
+}
+
 resource "aws_vpc" "this" {
   cidr_block = var.vpc_config.cidr_block
 
@@ -28,4 +36,10 @@ resource "aws_subnet" "this" {
       error_message = "Invalid availability zone: ${each.value.az}. Must be one of: ${join(", ", data.aws_availability_zones.available.names)}"
     }
   }
+}
+
+resource "aws_internet_gateway" "this" {
+  # just deploy one even if there are more than one public subnets
+  count = length(keys(local.public_subnets)) > 0 ? 1 : 0
+
 }

@@ -13,6 +13,7 @@ variable "vpc_config" {
 variable "subnet_config" {
   type = map(object({
     cidr_block = string
+    public     = optional(bool, false)
     az         = string
   }))
 
@@ -22,7 +23,4 @@ variable "subnet_config" {
     ])
     error_message = "The variable vpc_config must be a valid CIDR block."
   }
-
-
-
 }

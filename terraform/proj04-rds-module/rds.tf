@@ -10,8 +10,8 @@ module "database" {
   }
 
   subnet_ids = [
-    aws_subnet.allowed.id,
-    aws_subnet.not_allowed.id
+    aws_subnet.private1.id,
+    aws_subnet.public1.id
   ]
 
   security_group_ids = []

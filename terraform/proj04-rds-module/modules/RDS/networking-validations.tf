@@ -22,8 +22,14 @@ data "aws_subnet" "input" {
         Please do deploy RDS Instances in the default VPC.
         EOT
     }
+
+    postcondition {
+      condition     = can(lower(self.tags.Access) == "private")
+      error_message = "The following subnet does not have the required tag 'Access' with value 'private':"
+    }
   }
 }
+
 
 
 # ====================

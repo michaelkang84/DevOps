@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "remote_state" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    # prevent_destroy = true
   }
 }
 

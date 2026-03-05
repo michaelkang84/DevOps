@@ -1,3 +1,5 @@
+# CLI Command:
+# terraform import aws_s3_bucket.remote_state 'mk-terraform-state-bucket-555'
 resource "aws_s3_bucket" "remote_state" {
   bucket = "mk-terraform-state-bucket-555"
 
@@ -16,8 +18,6 @@ import {
   id = aws_s3_bucket.remote_state.bucket
 }
 
-# CLI Command:
-# terraform import aws_s3_bucket.remote_state 'mk-terraform-state-bucket-555'
 resource "aws_s3_bucket_public_access_block" "remote_state" {
   bucket = aws_s3_bucket.remote_state.bucket
 

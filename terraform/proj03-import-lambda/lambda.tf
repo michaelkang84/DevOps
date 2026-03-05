@@ -46,17 +46,20 @@ import {
   id = "arn:aws:iam::113817973311:policy/service-role/AWSLambdaBasicExecutionRole-6da4d6e9-727a-4771-8f89-afa308a4b981"
 }
 
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 data "aws_iam_policy_document" "lambda_execution" {
   statement {
     effect    = "Allow"
     actions   = ["logs:CreateLogGroup"]
-    resources = ["arn:aws:logs:us-east-1:113817973311:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
   }
 
   statement {
     effect    = "Allow"
     actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-    resources = ["arn:aws:logs:us-east-1:113817973311:log-group:/aws/lambda/manually-created:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/manually-created:*"]
   }
 }
 

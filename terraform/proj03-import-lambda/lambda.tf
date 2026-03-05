@@ -15,7 +15,7 @@ resource "aws_lambda_function" "this" {
   function_name    = "manually-created"
   handler          = "index.handler"
   source_code_hash = data.archive_file.lambda.output_base64sha256
-  role             = "arn:aws:iam::113817973311:role/service-role/manually-created-role-y89ux6n4"
+  role             = aws_iam_role.lambda_execution_role.arn
   runtime          = "nodejs22.x"
   tags = {
     "lambda-console:blueprint" = "hello-world"
@@ -31,4 +31,31 @@ resource "aws_lambda_function" "this" {
     log_format = "Text"
     log_group  = "/aws/lambda/manually-created"
   }
+}
+
+# =====================
+# Lambda Exeuction Role
+# =====================
+import {
+  to = aws_iam_role.lambda_execution_role
+  id = "manually-created-role-y89ux6n4"
+}
+
+data "aws_iam_policy_document" "assume_lambda_execution_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "lambda_execution_role" {
+  assume_role_policy = data.aws_iam_policy_document.assume_lambda_execution_role.json
+  name               = "manually-created-role-y89ux6n4"
+  path               = "/service-role/"
 }

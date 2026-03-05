@@ -9,7 +9,10 @@ module "database" {
     password = "Admin1234"
   }
 
-  subnet_ids = []
+  subnet_ids = [
+    aws_subnet.allowed.id,
+    aws_subnet.not_allowed.id
+  ]
 
   security_group_ids = []
 }

@@ -38,6 +38,6 @@ resource "aws_instance" "new_final" {
 }
 
 module "compute" {
-    source = "./modules/compute"
-    ami_id = data.aws_ami.ubuntu-east.id
+  source = "./modules/compute"
+  ami_id = data.aws_ami.ubuntu-east.id
 }

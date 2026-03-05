@@ -33,6 +33,11 @@ resource "aws_lambda_function" "this" {
   }
 }
 
+resource "aws_lambda_function_url" "manually-created-now-managed" {
+  function_name      = aws_lambda_function.this.function_name
+  authorization_type = "NONE"
+}
+
 # =====================
 # Lambda Exeuction Role
 # =====================
@@ -103,8 +108,8 @@ import {
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {
-  log_group_class   = "STANDARD"
-  name              = "/aws/lambda/manually-created"
-  skip_destroy      = false
+  log_group_class = "STANDARD"
+  name            = "/aws/lambda/manually-created"
+  skip_destroy    = false
 }
 

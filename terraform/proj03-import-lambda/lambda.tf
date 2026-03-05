@@ -41,6 +41,29 @@ import {
   id = "manually-created-role-y89ux6n4"
 }
 
+import {
+  to = aws_iam_policy.lambda_execution
+  id = "arn:aws:iam::113817973311:policy/service-role/AWSLambdaBasicExecutionRole-6da4d6e9-727a-4771-8f89-afa308a4b981"
+}
+
+resource "aws_iam_policy" "lambda_execution" {
+  name        = "AWSLambdaBasicExecutionRole-6da4d6e9-727a-4771-8f89-afa308a4b981"
+  path        = "/service-role/"
+  policy = jsonencode({
+    Statement = [{
+      Action   = "logs:CreateLogGroup"
+      Effect   = "Allow"
+      Resource = "arn:aws:logs:us-east-1:113817973311:*"
+      }, {
+      Action   = ["logs:CreateLogStream", "logs:PutLogEvents"]
+      Effect   = "Allow"
+      Resource = ["arn:aws:logs:us-east-1:113817973311:log-group:/aws/lambda/manually-created:*"]
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+
 data "aws_iam_policy_document" "assume_lambda_execution_role" {
   statement {
     effect = "Allow"
@@ -58,4 +81,9 @@ resource "aws_iam_role" "lambda_execution_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_lambda_execution_role.json
   name               = "manually-created-role-y89ux6n4"
   path               = "/service-role/"
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_execution_role_attachment" {
+  role       = aws_iam_role.lambda_execution_role.name
+  policy_arn = aws_iam_policy.lambda_execution.arn
 }

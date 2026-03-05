@@ -92,3 +92,19 @@ resource "aws_iam_role_policy_attachment" "lambda_execution_role_attachment" {
   role       = aws_iam_role.lambda_execution_role.name
   policy_arn = aws_iam_policy.lambda_execution.arn
 }
+
+
+# =====================
+# CloudWatch Log Group
+# =====================
+import {
+  to = aws_cloudwatch_log_group.lambda
+  id = "/aws/lambda/manually-created"
+}
+
+resource "aws_cloudwatch_log_group" "lambda" {
+  log_group_class   = "STANDARD"
+  name              = "/aws/lambda/manually-created"
+  skip_destroy      = false
+}
+

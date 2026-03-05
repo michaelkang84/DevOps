@@ -5,7 +5,7 @@ module "database" {
   storage_size = 10
 
   credentials = {
-    username = "db-admin"
+    username = "dbadmin"
     password = "Admin1234"
   }
 

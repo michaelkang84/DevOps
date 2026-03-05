@@ -8,6 +8,6 @@
         4.2.2 make sure that they are private [X]
             4.2.2.1 check whether they are tagged with Access=Private [X]
     4.3 for security groups:
-        4.3.1 make sure that there are no inbound rules for ip addresses
-5. create the necessary resources and make sure the validation is working
-6. create the RDS instance inside of the module
+        4.3.1 make sure that there are no inbound rules for ip addresses [X]
+5. create the necessary resources and make sure the validation is working [X]
+6. create the RDS instance inside of the module [X]

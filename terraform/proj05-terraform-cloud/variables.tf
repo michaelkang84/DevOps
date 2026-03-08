@@ -17,3 +17,13 @@ variable "terraform_cloud_audience" {
     error_message = "Invalid Terraform Cloud audience. Allowed values are: aws.workload.identity."
   }
 }
+
+variable "admin_role_workspaces" {
+  type        = list(string)
+  description = "The workspaces to attach the admin role to"
+}
+
+variable "admin_role_project" {
+  type        = string
+  description = "The project to attach the admin role to"
+}
